@@ -1,107 +1,76 @@
 /* eslint-disable no-console */
-//  таблица умножения
+// Generate person 
+const createPerson = (fn, ln, mn,bd) => ({
+    firstName: fn,
+    lastName: ln,
+    middleName: mn,
+    birthDate: bd
+})
 
-let table = "";
-for (let i = 1; i <= 9; i += 1) {
-  for (let j = 1; j <= 9; j += 1) {
-    table += " " + i * j;
+const generatePeople = () => {
+    return [
+        createPerson("Conor-fn", "Macgregor-ln", "Ivanovich-mn", new Date(1985, 10, 10)),
+        createPerson("Habib-fn", "Nurmagamedov-ln", "Xz-mn", new Date(1986, 8, 11)),
+        createPerson("Justin-fn", "Gatgi-ln", "Loose-mn", new Date(1982, 3, 10)),
+        createPerson("John-fn", "Jones-ln", "Olegovich-mn", new Date(1982, 7, 10)),
+        createPerson("Fedor-fn ", "Emeljanienko-ln", "Bohatyr-mn", new Date(1989, 10, 11)),
+        createPerson("Tony-fn", "Ferguson-ln", "Olen-mn", new Date(1985, 7, 10)),
+        createPerson("Tyson-fn", "Woodley-ln", "Pokerman-mn", new Date(1981, 7, 10)),
+        createPerson("Ngalo-fn", "Uzumaki-ln", "Kakashevich-mn", new Date(1980, 2, 10)),
+        createPerson("Igor-fn", "Igorev-ln", "Igorevich-mn", new Date(1990, 7, 10)),
+        createPerson("Sergey-fn", "Sergeev-ln", "Sergeevich-mn", new Date(1981, 7, 10))
+    ];
+}
 
-    if (i * j < 10) {
-      table += " ";
+
+// Сортировка в лексико-графическом порядке 
+// -1 - по убыванию 
+// 1 - по возрастанию  ( по умолчанию )
+
+const comparePerson = (a, b) => {
+    if ( a.firstName === b.firstName) {
+        if ( a.lastName === b.lastName) {
+            return a.middleName <= b.middleName ? -1 : 1;
+        }
+         return a.lastName < b.lastName ? -1 : 1;
     }
-  }
-  console.log(table);
-  table = "";
-}
-
-// массив из 20 чисел который делится на 3 или 5 или 15
-const numbers = [];
-function array() {
-  let number = 3;
-  for (let counter = 0; counter <= 19; ) {
-    const matched = number % 3 === 0 || number % 5 === 0 || number % 15 === 0;
-    if (matched) {
-      counter += 1;
-      numbers.push(number);
-    }
-    number += 1;
-    console.log(numbers);
-  }
-}
-array();
-
-// Произведение элементов каждого 3 числа
-function productNumbers() {
-  let product = 1;
-  for (let index = 2; index < 20; index += 3) {
-    product *= numbers[index];
-  }
-  console.log(product);
-}
-productNumbers();
-// MIN 
-let min = numbers[0];
-
-for (let index = 1; index < numbers.length; index += 1) {
-  if (min > numbers[index]) {
-    min = numbers[index];
-  }
-}
-
-console.log(`min = ${min}`);
-
-// MAX 
-
-let max = numbers[0];
-
-for (let index = 1; index < numbers.length; index += 1) {
-  if (max < numbers[index]) {
-    max = numbers[index];
-  }
-}
-
-console.log(`max= ${max}`);
-
-// Среднее арифметическое всех чисел
-let sum = 0;
-for (let i = 0; i < numbers.length; i += 1) {
-  sum += numbers[i];
-}
-let total = sum / numbers.length;
-console.log(total);
-
-// Таблица умножения (функция)
-const generateMatrix = () => {
-  const matrix = [];
-  for (let i = 0; i < 9; i += 1) {
-    const row = [];
-    for (let j = 0; j < 9; j += 1) {
-      row.push((i + 1) * (j + 1));
-    }
-    matrix.push(row);
-  }
-  return matrix;
+    return a.firstName < b.firstName ? -1 : 1;
 };
-const printMatrix = (matrix) => {
-  for (let i = 0; i < 9; i += 1) {
-    let row = "";
 
-    for (let j = 0; j < 9; j += 1) {
-      row += ` ${matrix[i][j].toString()}\t `;
+
+
+const sortArray = (a, compare, direction = 1) => {
+    for ( let i = 0; i < a.length - 1; i += 1) {
+        for ( let  j = 0; j < a.length - 1 - i; j += 1) {
+            if  ( compare ( a[j],  a[j+1]  ) === direction) {
+                const t = a[j];
+                a[j] = a[j+1];
+                a[j+1] = t;
+            }
+
+        } 
+        
     }
-    console.log(row);
-  }
-};
-const matrix = generateMatrix();
-printMatrix(matrix);
-
-// Вывести диагональ
-for (let i = 0; i < 9; i += 1) {
-  let row = "";
-
-  for (let j = 0; j < 9 - i; j += 1) {
-    row += ` ${matrix[i][j].toString()}\t `;
-  }
-  console.log(row);
 }
+
+const people = generatePeople();
+sortArray(people, comparePerson, -1);
+console.log(people);
+
+// Найти самого молодого 
+const yong = (a, b) => {
+    if ( a.bd > b.bd) {
+       
+            return a.middleName < b.middleName ? -1 : 1;
+        
+    }
+    return a.firstName < b.firstName ? -1 : 1;
+};
+const.log(young);
+
+// Самого старого
+
+
+
+
 
